@@ -1,0 +1,240 @@
+name: Compress
+options:
+  bundleIdPrefix: com.compress
+  developmentLanguage: en
+  deploymentTarget:
+    macOS: "14.0"
+  createIntermediateGroups: true
+settings:
+  base:
+    SWIFT_VERSION: "6.0"
+    MACOSX_DEPLOYMENT_TARGET: "14.0"
+packages:
+  CompressCore:
+    path: CompressCore
+  Sparkle:
+    url: https://github.com/sparkle-project/Sparkle
+    from: 2.6.0
+  Sparkle:
+    url: https://github.com/sparkle-project/Sparkle
+    exactVersion: 2.8.0
+targets:
+  Compress:
+    type: application
+    platform: macOS
+    sources:
+      - path: Compress
+        excludes:
+          - Resources/Info.plist
+          - Resources/Compress.entitlements
+          - Resources/Squeezo.storekit
+          - Resources/Info-Direct.plist
+          - Resources/Compress-Direct.entitlements
+          - Resources/Info-Direct.plist
+          - Resources/Compress-Direct.entitlements
+    info:
+      path: Compress/Resources/Info.plist
+      properties:
+        CFBundleURLTypes:
+          - CFBundleURLName: com.compress.app
+            CFBundleURLSchemes:
+              - squeezo
+        CFBundleDocumentTypes:
+          - CFBundleTypeName: Media
+            CFBundleTypeRole: Viewer
+            LSHandlerRank: Alternate
+            LSItemContentTypes:
+              - public.image
+              - public.movie
+              - com.compuserve.gif
+              - com.adobe.pdf
+              - public.audio
+              - org.idpf.epub-container
+              - org.openxmlformats.wordprocessingml.document
+              - org.openxmlformats.presentationml.presentation
+              - org.openxmlformats.spreadsheetml.sheet
+    dependencies:
+      - package: CompressCore
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.compress.app
+        PRODUCT_NAME: Squeezo
+        PRODUCT_MODULE_NAME: Compress
+        MARKETING_VERSION: "1.0.0"
+        CURRENT_PROJECT_VERSION: "1"
+        GENERATE_INFOPLIST_FILE: YES
+        INFOPLIST_KEY_CFBundleDisplayName: Squeezo
+        INFOPLIST_KEY_LSApplicationCategoryType: public.app-category.utilities
+        INFOPLIST_KEY_NSHumanReadableCopyright: "Copyright © 2026. All rights reserved."
+        INFOPLIST_KEY_ITSAppUsesNonExemptEncryption: NO
+        ENABLE_APP_SANDBOX: YES
+        ENABLE_HARDENED_RUNTIME: YES
+        CODE_SIGN_ENTITLEMENTS: Compress/Resources/Compress.entitlements
+        CODE_SIGN_STYLE: Automatic
+        DEVELOPMENT_TEAM: U253D92J7M
+        SWIFT_EMIT_LOC_STRINGS: YES
+        LOCALIZATION_PREFERS_STRING_CATALOGS: YES
+        ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
+        ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME: AccentColor
+  SqueezoDirect:
+    type: application
+    platform: macOS
+    sources:
+      - path: Compress
+        excludes:
+          - Resources/Info.plist
+          - Resources/Compress.entitlements
+          - Resources/Squeezo.storekit
+          - Resources/Info-Direct.plist
+          - Resources/Compress-Direct.entitlements
+    info:
+      path: Compress/Resources/Info-Direct.plist
+      properties:
+        CFBundleURLTypes:
+          - CFBundleURLName: com.compress.app.direct
+            CFBundleURLSchemes:
+              - squeezo
+        CFBundleDocumentTypes:
+          - CFBundleTypeName: Media
+            CFBundleTypeRole: Viewer
+            LSHandlerRank: Alternate
+            LSItemContentTypes:
+              - public.image
+              - public.movie
+              - com.compuserve.gif
+              - com.adobe.pdf
+              - public.audio
+              - org.idpf.epub-container
+              - org.openxmlformats.wordprocessingml.document
+              - org.openxmlformats.presentationml.presentation
+              - org.openxmlformats.spreadsheetml.sheet
+        # Updates: the feed lives in the public releases repo; the key verifies every download.
+        SUFeedURL: https://github.com/Gurjotharika/squeezo-releases/releases/latest/download/appcast.xml
+        SUPublicEDKey: SPARKLE_PUBLIC_KEY_PLACEHOLDER
+        SUEnableInstallerLauncherService: true
+        SUEnableDownloaderService: false
+        SUScheduledCheckInterval: 86400
+        DodoEnvironment: live
+    dependencies:
+      - package: CompressCore
+      - package: Sparkle
+        product: Sparkle
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.compress.app.direct
+        PRODUCT_NAME: Squeezo
+        PRODUCT_MODULE_NAME: Compress
+        MARKETING_VERSION: "1.0.0"
+        CURRENT_PROJECT_VERSION: "1"
+        GENERATE_INFOPLIST_FILE: YES
+        INFOPLIST_KEY_CFBundleDisplayName: Squeezo
+        INFOPLIST_KEY_LSApplicationCategoryType: public.app-category.utilities
+        INFOPLIST_KEY_NSHumanReadableCopyright: "Copyright © 2026. All rights reserved."
+        INFOPLIST_KEY_ITSAppUsesNonExemptEncryption: NO
+        ENABLE_APP_SANDBOX: YES
+        ENABLE_HARDENED_RUNTIME: YES
+        CODE_SIGN_ENTITLEMENTS: Compress/Resources/Compress-Direct.entitlements
+        CODE_SIGN_STYLE: Automatic
+        DEVELOPMENT_TEAM: U253D92J7M
+        SWIFT_ACTIVE_COMPILATION_CONDITIONS: "$(inherited) DIRECT"
+        SWIFT_EMIT_LOC_STRINGS: YES
+        LOCALIZATION_PREFERS_STRING_CATALOGS: YES
+        ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
+        ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME: AccentColor
+  # The edition sold on the website: license keys from Dodo Payments and updates through Sparkle.
+  # Same code as the App Store target; everything specific to it sits behind `#if DIRECT`.
+  CompressDirect:
+    type: application
+    platform: macOS
+    sources:
+      - path: Compress
+        excludes:
+          - Resources/Info.plist
+          - Resources/Compress.entitlements
+          - Resources/Squeezo.storekit
+          - Resources/Info-Direct.plist
+          - Resources/Compress-Direct.entitlements
+    info:
+      path: Compress/Resources/Info-Direct.plist
+      properties:
+        CFBundleURLTypes:
+          - CFBundleURLName: com.compress.app
+            CFBundleURLSchemes:
+              - squeezo
+        CFBundleDocumentTypes:
+          - CFBundleTypeName: Media
+            CFBundleTypeRole: Viewer
+            LSHandlerRank: Alternate
+            LSItemContentTypes:
+              - public.image
+              - public.movie
+              - com.compuserve.gif
+              - com.adobe.pdf
+              - public.audio
+              - org.idpf.epub-container
+              - org.openxmlformats.wordprocessingml.document
+              - org.openxmlformats.presentationml.presentation
+              - org.openxmlformats.spreadsheetml.sheet
+        DodoEnvironment: live
+        SUFeedURL: https://github.com/Gurjotharika/squeezo-releases/releases/latest/download/appcast.xml
+        SUPublicEDKey: cmNyJOmim8FAIVieSZizscB9iPAkJTlHVL9cAAsD8Ew=
+        SUEnableInstallerLauncherService: true
+        SUEnableAutomaticChecks: true
+    dependencies:
+      - package: CompressCore
+      - package: Sparkle
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.compress.app
+        PRODUCT_NAME: Squeezo
+        PRODUCT_MODULE_NAME: Compress
+        MARKETING_VERSION: "1.0.0"
+        CURRENT_PROJECT_VERSION: "1"
+        GENERATE_INFOPLIST_FILE: YES
+        INFOPLIST_KEY_CFBundleDisplayName: Squeezo
+        INFOPLIST_KEY_LSApplicationCategoryType: public.app-category.utilities
+        INFOPLIST_KEY_NSHumanReadableCopyright: "Copyright © 2026. All rights reserved."
+        INFOPLIST_KEY_ITSAppUsesNonExemptEncryption: NO
+        ENABLE_APP_SANDBOX: YES
+        ENABLE_HARDENED_RUNTIME: YES
+        CODE_SIGN_ENTITLEMENTS: Compress/Resources/Compress-Direct.entitlements
+        CODE_SIGN_STYLE: Automatic
+        DEVELOPMENT_TEAM: U253D92J7M
+        SWIFT_ACTIVE_COMPILATION_CONDITIONS: "$(inherited) DIRECT"
+        SWIFT_EMIT_LOC_STRINGS: YES
+        LOCALIZATION_PREFERS_STRING_CATALOGS: YES
+        ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
+        ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME: AccentColor
+  CompressTests:
+    type: bundle.unit-test
+    platform: macOS
+    sources:
+      - CompressTests
+    dependencies:
+      - target: Compress
+    settings:
+      base:
+        GENERATE_INFOPLIST_FILE: YES
+        PRODUCT_BUNDLE_IDENTIFIER: com.compress.app.tests
+        TEST_HOST: "$(BUILT_PRODUCTS_DIR)/Squeezo.app/Contents/MacOS/Squeezo"
+        BUNDLE_LOADER: "$(TEST_HOST)"
+        DEVELOPMENT_TEAM: U253D92J7M
+        CODE_SIGN_STYLE: Automatic
+schemes:
+  CompressDirect:
+    build:
+      targets:
+        CompressDirect: all
+  SqueezoDirect:
+    build:
+      targets:
+        SqueezoDirect: all
+  Compress:
+    run:
+      storeKitConfiguration: Compress/Resources/Squeezo.storekit
+    build:
+      targets:
+        Compress: all
+    test:
+      targets:
+        - CompressTests

@@ -1,0 +1,13 @@
+.DS_Store
+.build/
+.swiftpm/
+DerivedData/
+*.xcodeproj/xcuserdata/
+xcuserdata/
+.tools/
+Corpus/*
+!Corpus/README.md
+# The project is generated from project.yml
+build/
+*.mov
+*.key

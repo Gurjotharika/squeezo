@@ -1,0 +1,356 @@
+<title>Squeezo Landing Page</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Instrument+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: centered text-led hero over a live app mockup, then proof, tools, privacy, pricing, FAQ.
+   Monochrome only: ink on paper, one pure-black/white action colour, no gradients. */
+:root{
+  --paper:#f6f6f4; --card:#ffffff; --ink:#111113; --muted:#6b6b70; --line:#e2e2de; --soft:#ececE8;
+  --action:#111113; --on-action:#f6f6f4; --good:#1f7a3d;
+  --display:"Bricolage Grotesque","Helvetica Neue",Arial,sans-serif;
+  --body:"Instrument Sans","Helvetica Neue",Arial,sans-serif;
+  --mono:"JetBrains Mono",ui-monospace,Menlo,monospace;
+  --r:14px;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --paper:#0e0e10; --card:#17171a; --ink:#f3f3f1; --muted:#9a9aa0; --line:#26262a; --soft:#1e1e22;
+  --action:#f3f3f1; --on-action:#0e0e10; --good:#58c27a; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --paper:#0e0e10; --card:#17171a; --ink:#f3f3f1; --muted:#9a9aa0; --line:#26262a; --soft:#1e1e22;
+  --action:#f3f3f1; --on-action:#0e0e10; --good:#58c27a; color-scheme:dark}
+
+*{box-sizing:border-box}
+body{background:var(--paper);color:var(--ink);font-family:var(--body);font-size:17px;line-height:1.55;
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));
+  -webkit-font-smoothing:antialiased}
+h1,h2,h3{font-family:var(--display);letter-spacing:-.025em;line-height:1.02;margin:0;text-wrap:balance}
+p{margin:0}
+a{color:inherit}
+:focus-visible{outline:2px solid var(--ink);outline-offset:3px;border-radius:6px}
+.wrap{max-width:1120px;margin:0 auto}
+section{padding-block:clamp(56px,9vw,120px)}
+.eyebrow{font-family:var(--mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.btn{display:inline-flex;align-items:center;gap:10px;background:var(--action);color:var(--on-action);
+  font:600 16px/1 var(--body);padding:15px 22px;border-radius:999px;text-decoration:none;border:0;cursor:pointer;
+  transition:transform .25s cubic-bezier(.3,1.4,.5,1)}
+.btn:hover{transform:translateY(-2px)}
+.btn:active{transform:scale(.97)}
+.btn.ghost{background:transparent;color:var(--ink);border:1px solid var(--line)}
+.apple{width:16px;height:16px;fill:currentColor}
+
+/* nav */
+nav{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--paper);border-bottom:1px solid var(--line);
+  margin-inline:calc(-1 * max(16px,env(safe-area-inset-left,0px)));padding-inline:max(16px,env(safe-area-inset-left,0px))}
+nav .wrap{display:flex;align-items:center;justify-content:space-between;height:64px;gap:16px}
+.brand{display:flex;align-items:center;gap:10px;font:800 20px var(--display);letter-spacing:-.02em;text-decoration:none}
+.mark{width:30px;height:30px;border-radius:9px;background:#141416;display:grid;place-items:center}
+.mark svg{width:18px;height:18px;stroke:#fff;fill:none;stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round}
+.links{display:flex;gap:28px;font-size:15px;color:var(--muted)}
+.links a{text-decoration:none}.links a:hover{color:var(--ink)}
+nav .btn{padding:10px 16px;font-size:14px}
+@media(max-width:720px){.links{display:none}}
+
+/* hero */
+.hero{text-align:center;padding-top:clamp(48px,8vw,96px);padding-bottom:0}
+.pill{display:inline-flex;gap:8px;align-items:center;border:1px solid var(--line);background:var(--card);border-radius:999px;
+  padding:6px 14px;font-size:14px;color:var(--muted)}
+.dot{width:7px;height:7px;border-radius:50%;background:var(--good)}
+.hero h1{font-size:clamp(44px,8.5vw,104px);font-weight:800;margin:26px auto 0;max-width:12ch}
+.hero .sub{max-width:54ch;margin:24px auto 0;color:var(--muted);font-size:clamp(17px,2vw,20px)}
+.cta{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:34px}
+.micro{margin-top:18px;font-size:14px;color:var(--muted)}
+.formats{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin-top:26px}
+.formats span{font:500 12px var(--mono);border:1px solid var(--line);border-radius:6px;padding:4px 8px;color:var(--muted)}
+
+/* app mockup */
+.stage{margin-top:clamp(40px,6vw,72px)}
+.win{background:var(--card);border:1px solid var(--line);border-radius:18px;overflow:hidden;text-align:left;
+  box-shadow:0 40px 80px -40px rgba(0,0,0,.35);display:grid;grid-template-columns:200px 1fr 270px;min-height:430px}
+.win .bar{grid-column:1/-1;display:flex;gap:8px;padding:14px 16px;border-bottom:1px solid var(--line)}
+.win .bar i{width:12px;height:12px;border-radius:50%;background:var(--soft);border:1px solid var(--line)}
+.side{padding:14px;border-right:1px solid var(--line);display:flex;flex-direction:column;gap:2px;font-size:14px}
+.side div{padding:8px 10px;border-radius:8px;color:var(--muted)}
+.side div.on{background:var(--soft);color:var(--ink);font-weight:600}
+.side .foot{margin-top:auto;font:400 12px var(--mono);color:var(--muted)}
+.files{padding:18px;display:flex;flex-direction:column;gap:10px;min-width:0}
+.file{display:grid;grid-template-columns:44px 1fr auto;gap:12px;align-items:center;border:1px solid var(--line);border-radius:12px;padding:10px 12px}
+.thumb{width:44px;height:44px;border-radius:9px;background:var(--soft);display:grid;place-items:center;font:500 10px var(--mono);color:var(--muted)}
+.file b{font-weight:600;font-size:14px;display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.track{height:5px;border-radius:3px;background:var(--soft);margin-top:7px;overflow:hidden}
+.track i{display:block;height:100%;background:var(--ink);border-radius:3px;transition:width .5s cubic-bezier(.3,1,.4,1)}
+.size{font:500 12px var(--mono);text-align:right;white-space:nowrap}
+.size s{color:var(--muted)}
+.insp{padding:18px;border-left:1px solid var(--line);display:flex;flex-direction:column;gap:14px;font-size:14px;min-width:0}
+.insp h4{margin:0;font:700 15px var(--display)}
+.seg{display:grid;grid-template-columns:repeat(4,1fr);background:var(--soft);border-radius:9px;padding:3px;gap:2px}
+.seg button{font:500 12px var(--body);border:0;background:transparent;color:var(--muted);padding:7px 0;border-radius:7px;cursor:pointer}
+.seg button.on{background:var(--card);color:var(--ink);box-shadow:0 1px 2px rgba(0,0,0,.15)}
+.big{font:800 40px/1 var(--display);letter-spacing:-.03em}
+.big small{font:500 13px var(--mono);color:var(--good);letter-spacing:0;margin-left:6px}
+.cmp{display:grid;gap:6px;font:400 12px var(--mono);color:var(--muted)}
+.cmp div{display:grid;grid-template-columns:54px 1fr;align-items:center;gap:8px}
+.cmp .t{height:8px;background:var(--soft);border-radius:4px}
+.cmp .t i{display:block;height:100%;border-radius:4px;background:var(--ink)}
+.cmp .t.o i{background:var(--muted)}
+.go{background:var(--action);color:var(--on-action);text-align:center;border-radius:10px;padding:11px;font-weight:600;margin-top:auto}
+.example{margin-top:12px;font-size:13px;color:var(--muted);text-align:center}
+@media(max-width:900px){.win{grid-template-columns:1fr}.side,.insp{border:0}.side{flex-direction:row;overflow-x:auto}.side .foot{display:none}
+  .insp{border-top:1px solid var(--line)}}
+
+/* trust strip */
+.strip{border-block:1px solid var(--line);padding-block:26px}
+.strip .wrap{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:20px 32px}
+.strip div{font-size:15px;color:var(--muted)}.strip b{display:block;color:var(--ink);font-weight:600}
+
+/* results */
+.head{max-width:720px}
+.head h2{font-size:clamp(34px,5vw,60px);margin-top:14px}
+.head p{color:var(--muted);margin-top:18px;max-width:56ch}
+.results{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px;margin-top:48px}
+.res{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:22px;display:flex;flex-direction:column;gap:14px}
+.res .pct{font:800 52px/1 var(--display);letter-spacing:-.04em}
+.res h3{font-size:19px;letter-spacing:-.01em}
+.bars{display:grid;gap:7px;font:400 12px var(--mono);color:var(--muted)}
+.bars div{display:grid;grid-template-columns:48px 1fr auto;gap:8px;align-items:center}
+.bars .t{height:8px;background:var(--soft);border-radius:4px;overflow:hidden}.bars .t i{display:block;height:100%;background:var(--ink);border-radius:4px}
+.bars .o i{background:var(--muted)}
+.note{margin-top:18px;font-size:13px;color:var(--muted)}
+
+/* tools */
+.tools{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:1px;background:var(--line);border:1px solid var(--line);border-radius:var(--r);overflow:hidden;margin-top:48px}
+.tool{background:var(--card);padding:24px;display:grid;gap:8px;align-content:start}
+.tool svg{width:26px;height:26px;stroke:var(--ink);fill:none;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+.tool h3{font-size:19px;letter-spacing:-.01em;margin-top:6px}
+.tool p{font-size:15px;color:var(--muted)}
+
+/* steps */
+.steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:32px;margin-top:48px}
+.step{border-top:2px solid var(--ink);padding-top:18px}
+.step .eyebrow{display:block;margin-bottom:10px}
+.step h3{font-size:26px}.step p{color:var(--muted);margin-top:10px;font-size:16px}
+
+/* privacy */
+.priv{background:var(--ink);color:var(--paper);border-radius:24px;padding:clamp(28px,6vw,72px);
+  margin-inline:calc(-1 * 0px)}
+.priv h2{font-size:clamp(34px,5vw,64px);max-width:16ch}
+.priv .cols{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:28px;margin-top:44px}
+.priv .cols h3{font-size:20px;letter-spacing:-.01em}
+.priv .cols p{opacity:.7;font-size:15px;margin-top:8px}
+.priv .eyebrow{color:var(--paper);opacity:.6}
+
+/* pricing */
+.plans{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px;margin-top:48px;max-width:860px}
+.plan{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:30px;display:flex;flex-direction:column;gap:18px}
+.plan.pro{border:2px solid var(--ink)}
+.plan h3{font-size:24px}
+.price{font:800 48px/1 var(--display);letter-spacing:-.04em}
+.price small{font:400 15px var(--body);color:var(--muted);letter-spacing:0}
+.plan ul{list-style:none;padding:0;margin:0;display:grid;gap:10px;font-size:15px}
+.plan li{display:flex;gap:10px}.plan li::before{content:"";flex:none;width:6px;height:6px;border-radius:50%;background:var(--ink);margin-top:9px}
+.plan .btn{justify-content:center;margin-top:auto}
+
+/* faq */
+.faq{max-width:760px;margin-top:40px;border-top:1px solid var(--line)}
+details{border-bottom:1px solid var(--line);padding:20px 0}
+summary{cursor:pointer;list-style:none;display:flex;justify-content:space-between;gap:16px;font:600 19px var(--body)}
+summary::-webkit-details-marker{display:none}
+summary::after{content:"+";font:400 24px/1 var(--mono);transition:transform .3s}
+details[open] summary::after{transform:rotate(45deg)}
+details p{color:var(--muted);margin-top:12px;max-width:62ch;font-size:16px}
+
+/* closing */
+.close{text-align:center}
+.close h2{font-size:clamp(40px,7vw,88px);max-width:14ch;margin:0 auto}
+.close .cta{margin-top:30px}
+footer{border-top:1px solid var(--line);padding-block:32px;font-size:14px;color:var(--muted)}
+footer .wrap{display:flex;flex-wrap:wrap;gap:12px 28px;justify-content:space-between}
+footer nav{all:unset}
+footer .fl{display:flex;gap:22px;flex-wrap:wrap}
+
+@media(prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+
+<nav>
+  <div class="wrap">
+    <a class="brand" href="#top"><span class="mark"><svg viewBox="0 0 24 24"><path d="M4 4l6 6M10 5v5H5M20 4l-6 6M14 5v5h5M4 20l6-6M10 19v-5H5M20 20l-6-6M14 19v-5h5"/></svg></span>Squeezo</a>
+    <div class="links"><a href="#results">Results</a><a href="#tools">Tools</a><a href="#privacy">Privacy</a><a href="#pricing">Pricing</a><a href="#faq">FAQ</a></div>
+    <a class="btn" href="#pricing">Get Squeezo</a>
+  </div>
+</nav>
+
+<main id="top">
+<section class="hero"><div class="wrap">
+  <span class="pill"><span class="dot"></span>Now on the Mac App Store</span>
+  <h1>Make files smaller. Keep them yours.</h1>
+  <p class="sub">Squeezo compresses, resizes, crops, converts and merges your photos, videos, GIFs, PDFs and audio. Everything runs on your Mac. Nothing is uploaded.</p>
+  <div class="cta">
+    <a class="btn" href="#pricing"><svg class="apple" viewBox="0 0 24 24"><path d="M16.4 12.6c0-2.3 1.9-3.4 2-3.5-1.1-1.600-2.800-1.800-3.400-1.800-1.400-.1-2.800.8-3.500.8-.7 0-1.800-.8-3-.8-1.500 0-3 .9-3.800 2.300-1.600 2.800-.4 7 1.200 9.200.8 1.100 1.700 2.300 2.900 2.300 1.200 0 1.600-.7 3-.7s1.800.7 3 .7c1.300 0 2.100-1.100 2.800-2.200.9-1.300 1.300-2.500 1.300-2.600-.1 0-2.500-1-2.500-3.700zM14.200 5.800c.6-.8 1.100-1.800.9-2.800-.9 0-2 .6-2.600 1.400-.6.700-1.100 1.700-.9 2.700 1 .1 2-.5 2.600-1.300z"/></svg>Download for Mac</a>
+    <a class="btn ghost" href="#tools">See what it does</a>
+  </div>
+  <p class="micro">Free for 5 files a day · macOS 14 or later · Apple silicon and Intel</p>
+  <div class="formats"><span>JPG</span><span>PNG</span><span>HEIC</span><span>MOV</span><span>MP4</span><span>GIF</span><span>PDF</span><span>M4A</span><span>EPUB</span><span>DOCX</span></div>
+
+  <div class="stage">
+    <div class="win" aria-label="Squeezo app window, example">
+      <div class="bar"><i></i><i></i><i></i></div>
+      <div class="side">
+        <div class="on">Compress</div><div>Resize</div><div>Crop</div><div>Convert</div><div>Enlarge</div>
+        <div>Merge PDF</div><div>Split PDF</div><div>Watermark</div><div>Hide Faces</div>
+        <div class="foot">3 of 5 free today</div>
+      </div>
+      <div class="files">
+        <div class="file"><div class="thumb">MOV</div><div><b>Beach trip 4K.mov</b><div class="track"><i data-w="1"></i></div></div><div class="size"><s id="s1o">1.82 GB</s><br><span id="s1n">412 MB</span></div></div>
+        <div class="file"><div class="thumb">PDF</div><div><b>Scanned contract.pdf</b><div class="track"><i data-w="1"></i></div></div><div class="size"><s id="s2o">48.0 MB</s><br><span id="s2n">6.1 MB</span></div></div>
+        <div class="file"><div class="thumb">HEIC</div><div><b>IMG_4021.heic</b><div class="track"><i data-w="1"></i></div></div><div class="size"><s id="s3o">5.4 MB</s><br><span id="s3n">1.3 MB</span></div></div>
+        <div class="file"><div class="thumb">GIF</div><div><b>Product demo.gif</b><div class="track"><i data-w="1"></i></div></div><div class="size"><s id="s4o">22.6 MB</s><br><span id="s4n">7.9 MB</span></div></div>
+      </div>
+      <div class="insp">
+        <h4>Options</h4>
+        <div class="seg" id="seg" role="group" aria-label="Quality">
+          <button data-q="0">Highest</button><button data-q="1">High</button><button data-q="2" class="on">Medium</button><button data-q="3">Low</button>
+        </div>
+        <div><div class="big"><span id="pct">78%</span><small>saved</small></div></div>
+        <div class="cmp">
+          <div>Before<span class="t o"><i style="width:100%"></i></span></div>
+          <div>After<span class="t"><i id="afterbar" style="width:22%"></i></span></div>
+        </div>
+        <div class="go">Compress 4 files</div>
+      </div>
+    </div>
+    <p class="example">Example window. Pick a quality to see how the estimate moves.</p>
+  </div>
+</div></section>
+
+<div class="strip"><div class="wrap">
+  <div><b>Works offline</b>No network access at all</div>
+  <div><b>No account</b>Open it and drop a file</div>
+  <div><b>Originals are safe</b>Replaced files go to the Trash and can be restored</div>
+  <div><b>Pay once</b>Or subscribe. Your choice</div>
+</div></div>
+
+<section id="results"><div class="wrap">
+  <div class="head"><span class="eyebrow">Results</span>
+    <h2>Smaller files, same look.</h2>
+    <p>Squeezo chooses the encoder that suits each format and checks the result. It never hands back a file larger than the one you gave it.</p></div>
+  <div class="results">
+    <div class="res"><h3>Video</h3><div class="pct">−77%</div>
+      <div class="bars"><div>Before<span class="t o"><i style="width:100%"></i></span>1.8 GB</div><div>After<span class="t"><i style="width:23%"></i></span>412 MB</div></div>
+      <p style="font-size:14px;color:var(--muted)">HEVC or H.264 at constant quality. HDR stays HDR.</p></div>
+    <div class="res"><h3>Photos</h3><div class="pct">−76%</div>
+      <div class="bars"><div>Before<span class="t o"><i style="width:100%"></i></span>5.4 MB</div><div>After<span class="t"><i style="width:24%"></i></span>1.3 MB</div></div>
+      <p style="font-size:14px;color:var(--muted)">JPEG, PNG, HEIC and TIFF, with optional resize and metadata stripping.</p></div>
+    <div class="res"><h3>PDF</h3><div class="pct">−87%</div>
+      <div class="bars"><div>Before<span class="t o"><i style="width:100%"></i></span>48 MB</div><div>After<span class="t"><i style="width:13%"></i></span>6.1 MB</div></div>
+      <p style="font-size:14px;color:var(--muted)">Scanned pages shrink. Text stays selectable.</p></div>
+    <div class="res"><h3>GIF</h3><div class="pct">−65%</div>
+      <div class="bars"><div>Before<span class="t o"><i style="width:100%"></i></span>22.6 MB</div><div>After<span class="t"><i style="width:35%"></i></span>7.9 MB</div></div>
+      <p style="font-size:14px;color:var(--muted)">Palette and frame optimisation. The animation is intact.</p></div>
+  </div>
+  <p class="note">Sample results from typical files. Savings depend on what is in your file.</p>
+</div></section>
+
+<section id="tools" style="padding-top:0"><div class="wrap">
+  <div class="head"><span class="eyebrow">Tools</span>
+    <h2>One app instead of six.</h2>
+    <p>Each tool works on the Mac, so you can use it with private files.</p></div>
+  <div class="tools">
+    <div class="tool"><svg viewBox="0 0 24 24"><path d="M4 4l6 6M10 5v5H5M20 4l-6 6M14 5v5h5M4 20l6-6M10 19v-5H5M20 20l-6-6M14 19v-5h5"/></svg><h3>Compress</h3><p>Photos, video, GIF, PDF, audio and Office files, in batches.</p></div>
+    <div class="tool"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="3"/><path d="M14 10l6-6M15 4h5v5"/></svg><h3>Resize</h3><p>By pixels, percent or a target width. Keeps the aspect ratio.</p></div>
+    <div class="tool"><svg viewBox="0 0 24 24"><path d="M6 2v16h16M2 6h16v16"/></svg><h3>Crop</h3><p>Drag handles or pick 1:1, 4:3, 16:9. Works on video too.</p></div>
+    <div class="tool"><svg viewBox="0 0 24 24"><path d="M4 8h13l-3-3M20 16H7l3 3"/></svg><h3>Convert</h3><p>Between image, video, GIF and audio formats. PDF pages to images and back.</p></div>
+    <div class="tool"><svg viewBox="0 0 24 24"><path d="M4 20V10h6M20 4v10h-6M4 20l7-7M20 4l-7 7"/></svg><h3>Enlarge</h3><p>Scale up with sharpening for clean edges.</p></div>
+    <div class="tool"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="8" height="18" rx="2"/><rect x="13" y="3" width="8" height="18" rx="2"/></svg><h3>Merge and split PDF</h3><p>Combine files in any order or pull out the pages you need.</p></div>
+    <div class="tool"><svg viewBox="0 0 24 24"><path d="M20 12a8 8 0 11-3-6.200M20 4v5h-5"/></svg><h3>Rotate and flip</h3><p>Fix sideways photos and videos in one pass.</p></div>
+    <div class="tool"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="3"/><path d="M7 15l3-3 3 3 2-2 2 2"/></svg><h3>Watermark</h3><p>Add text or a logo, set the position and opacity.</p></div>
+    <div class="tool"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M8 10h.01M16 10h.01M8 15c2 2 6 2 8 0"/></svg><h3>Hide faces</h3><p>Find faces on the device and blur or pixelate them.</p></div>
+    <div class="tool"><svg viewBox="0 0 24 24"><path d="M5 3h10l4 4v14H5zM8 12h8M8 16h5"/></svg><h3>PDF to Markdown</h3><p>Pull text out of PDFs and images, with on-device OCR.</p></div>
+    <div class="tool"><svg viewBox="0 0 24 24"><circle cx="12" cy="9" r="4"/><path d="M4 21c1-5 15-5 16 0"/></svg><h3>Remove background</h3><p>Cut out the subject of a photo and save a transparent PNG.</p></div>
+    <div class="tool"><svg viewBox="0 0 24 24"><path d="M3 7a2 2 0 012-2h4l2 2h8a2 2 0 012 2v8a2 2 0 01-2 2H5a2 2 0 01-2-2z"/></svg><h3>Watched folders</h3><p>Drop a file in a folder and it is handled for you. Pro.</p></div>
+  </div>
+</div></section>
+
+<section style="padding-top:0"><div class="wrap">
+  <div class="head"><span class="eyebrow">How it works</span><h2>Drop, check, save.</h2></div>
+  <div class="steps">
+    <div class="step"><span class="eyebrow">Step 1</span><h3>Drop your files</h3><p>Drag in files or whole folders, or use Open With from Finder.</p></div>
+    <div class="step"><span class="eyebrow">Step 2</span><h3>Look at the details</h3><p>The right-hand panel shows size, dimensions and an estimate before you run anything.</p></div>
+    <div class="step"><span class="eyebrow">Step 3</span><h3>Save where you want</h3><p>Next to the original, in a folder, or replace it. Replaced originals can be restored.</p></div>
+  </div>
+</div></section>
+
+<section id="privacy" style="padding-top:0"><div class="wrap"><div class="priv">
+  <span class="eyebrow">Privacy</span>
+  <h2>Your files never leave your Mac.</h2>
+  <div class="cols">
+    <div><h3>No uploads</h3><p>Squeezo has no network permission. It cannot send a file anywhere.</p></div>
+    <div><h3>No tracking</h3><p>No analytics, no account and no ads. The privacy policy is short.</p></div>
+    <div><h3>Sandboxed</h3><p>It can only open the files and folders you choose, as the Mac App Store requires.</p></div>
+  </div>
+</div></div></section>
+
+<section id="pricing" style="padding-top:0"><div class="wrap">
+  <div class="head"><span class="eyebrow">Pricing</span><h2>Start free. Pay when it earns it.</h2>
+    <p>Squeezo is free for 5 files a day. Pro removes the limit.</p></div>
+  <div class="plans">
+    <div class="plan"><h3>Free</h3><div class="price">$0</div>
+      <ul><li>5 files a day</li><li>Every tool</li><li>All formats</li></ul>
+      <a class="btn ghost" href="#">Download</a></div>
+    <div class="plan pro"><h3>Pro</h3><div class="price">$29.99 <small>once</small></div>
+      <p style="font-size:14px;color:var(--muted);margin-top:-8px">or $9.99 a year</p>
+      <ul><li>No daily limit</li><li>Watched folders</li><li>Shortcuts actions</li><li>Free updates for 1.x</li></ul>
+      <a class="btn" href="#">Get Squeezo Pro</a></div>
+  </div>
+  <p class="note">Prices shown are examples. The yearly plan renews automatically until you cancel in your Apple ID settings.</p>
+</div></section>
+
+<section id="faq" style="padding-top:0"><div class="wrap">
+  <div class="head"><span class="eyebrow">FAQ</span><h2>Questions</h2></div>
+  <div class="faq">
+    <details><summary>Are my files uploaded anywhere?</summary><p>No. Squeezo has no network access. Every tool runs on your Mac.</p></details>
+    <details><summary>Will it make my files worse?</summary><p>Squeezo uses constant-quality encoding and checks the output. If a result would be larger than the original, it keeps the original.</p></details>
+    <details><summary>What happens to my originals?</summary><p>You choose. Save a copy, save to a folder, or replace the original. Replaced originals go to the Trash and you can undo from the app.</p></details>
+    <details><summary>Does Enlarge use AI?</summary><p>No. It resamples and sharpens. It gives cleaner edges than a plain stretch, but it does not invent detail.</p></details>
+    <details><summary>Which Macs does it run on?</summary><p>macOS 14 Sonoma or later, on Apple silicon and Intel.</p></details>
+    <details><summary>Is there a Windows version?</summary><p>No. Squeezo is built for the Mac.</p></details>
+    <details><summary>Can I get a refund?</summary><p>Purchases go through the App Store, so you can request a refund from Apple.</p></details>
+  </div>
+</div></section>
+
+<section class="close" style="padding-top:0"><div class="wrap">
+  <h2>Lighter files, in one drop.</h2>
+  <div class="cta"><a class="btn" href="#pricing">Download for Mac</a></div>
+  <p class="micro">Free for 5 files a day. No account.</p>
+</div></section>
+</main>
+
+<footer><div class="wrap">
+  <span>© 2026 Squeezo. All rights reserved.</span>
+  <span class="fl"><a href="#">Privacy</a><a href="#">Support</a><a href="https://www.apple.com/legal/internet-services/itunes/dev/stdeula/">Terms of use</a></span>
+</div></footer>
+
+<script>
+(function(){
+  // Estimates for the example window. Ratios = size after / size before, per quality level.
+  var items=[
+    {o:1.82*1024,u:'MB',id:1,r:[.62,.34,.226,.12]},
+    {o:48,u:'MB',id:2,r:[.45,.22,.127,.07]},
+    {o:5.4,u:'MB',id:3,r:[.6,.38,.24,.12]},
+    {o:22.6,u:'MB',id:4,r:[.8,.5,.35,.22]}];
+  var avg=[.6,.37,.22,.12];
+  function fmt(v){return v>=1024?(v/1024).toFixed(2)+' GB':v>=100?Math.round(v)+' MB':v.toFixed(1)+' MB'}
+  var btns=document.querySelectorAll('#seg button');
+  function set(q){
+    btns.forEach(function(b){b.classList.toggle('on',+b.dataset.q===q)});
+    items.forEach(function(it){
+      var n=document.getElementById('s'+it.id+'n'); n.textContent=fmt(it.o*it.r[q]);
+    });
+    document.querySelectorAll('.track i').forEach(function(t,i){t.style.width=Math.round(100*(1-.1*i*0))+'%'});
+    document.getElementById('pct').textContent=Math.round((1-avg[q])*100)+'%';
+    document.getElementById('afterbar').style.width=Math.round(avg[q]*100)+'%';
+  }
+  btns.forEach(function(b){b.addEventListener('click',function(){set(+b.dataset.q)})});
+  set(2);
+})();
+</script>
