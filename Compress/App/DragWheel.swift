@@ -273,6 +273,9 @@ final class DragWheelController {
     }
 
     private func mouseDragged() {
+        #if DEBUG
+        NSLog("WHEEL drag visible=%d shift=%d changeCount=%d base=%d", isVisible, NSEvent.modifierFlags.contains(.shift), NSPasteboard(name: .drag).changeCount, dragCountAtMouseDown)
+        #endif
         guard !isVisible, NSEvent.modifierFlags.contains(.shift) else { return }
         let pasteboard = NSPasteboard(name: .drag)
         guard pasteboard.changeCount != dragCountAtMouseDown else { return }

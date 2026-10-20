@@ -44,6 +44,14 @@ struct CompressApp: App {
                         DragWheelController.shared.state.expanded = 1
                         DragWheelController.shared.state.hit = .child(parent: 1, index: 1)
                     }
+                    if args.contains("-demoFloat") {
+                        // Screen recordings: the window floats above the backdrop at a fixed place.
+                        for window in NSApp.windows where !(window is NSPanel) && window.canBecomeMain {
+                            window.level = NSWindow.Level(rawValue: 4)
+                            window.setFrame(NSRect(x: 330, y: 180, width: 1340, height: 760), display: true)
+                            window.makeKeyAndOrderFront(nil)
+                        }
+                    }
                     if args.contains("-light") { NSApp.appearance = NSAppearance(named: .aqua) }
                 }
                 #endif
